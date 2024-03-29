@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Pertemuan 7</title>
+    <style>
+        form {
+            margin: 20px;
+            border: 2px solid #e3e6e8;
+            padding: 10px 20px 60px 20px;
+            box-shadow: 2px 2px 7px 1px #e3e6e8;
+        }
+    </style>
+</head>
+<body>
+    <form id="formMahasiswa">
+        <h1>Website Input Data Mahasiswa</h1>
+        <p>Isi Data Mahasiswa</p>
+        <p style="margin: 0;">
+            <label for="nim">Nim<span style="color: red;">*</span>:</label>
+            <input type="text" id="nim" name="nim" required>
+        </p>
+        <br>
+        <p style="margin: 0;">
+            <label for="nama">Nama<span style="color: red;">*</span>:</label>
+            <input type="text" id="nama" name="nama" required>
+        </p>
+        <br>
+        <p>Jenis Kelamin : 
+            <br>
+            <input type="radio" id="pria" name="jenis_kelamin" value="Pria">
+            <label for="pria">Pria</label>
+
+            <input type="radio" id="perempuan" name="jenis_kelamin" value="Perempuan">
+            <label for="perempuan">Perempuan</label>
+        </p>
+        <br>
+        <p>
+            <label for="tahun_masuk">Tahun masuk<span style="color: red;">*</span>:</label>
+            <input type="text" id="tahun_masuk" name="tahun_masuk" required>
+        </p>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        document.getElementById("formMahasiswa").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Ambil nilai input dari form
+            let nim = document.getElementById("nim").value;
+            let nama = document.getElementById("nama").value;
+            let jenisKelamin = document.querySelector('input[name="jenis_kelamin"]:checked').value;
+            let tahunMasuk = parseInt(document.getElementById("tahun_masuk").value);
+
+            // Validasi tahun masuk berupa 4 angka 
+            if (isNaN(tahunMasuk) || tahunMasuk.toString().length < 4) {
+                alert("Tahun masuk harus memiliki 4 angka");
+                return;
+            }
+
+            // Menghitung semester berdasarkan tahun masuk
+            let semester = Math.ceil((new Date().getFullYear() - tahunMasuk) * 2);
+
+            // Menampilkan data dalam popup
+            let popupMessage = `Nim anda: ${nim},
+                    \nNama anda: ${nama},
+                    \nJenis Kelamin anda: ${jenisKelamin},
+                    \nTahun Masuk anda: ${tahunMasuk},
+                    \ndan anda berarti sekarang semester: ${semester}`;
+            alert(popupMessage);
+        });
+    </script>
+</body>
+</html>
